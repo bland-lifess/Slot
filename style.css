@@ -1,7 +1,9 @@
 /* =========================================================
    SLOT SURGE — design tokens
    A real cabinet, not a gradient: wine-dark panel, aged brass
-   trim, neon tube signage. Boldness lives in the machine only.
+   trim, neon tube signage, brushed-metal lever. Boldness lives
+   in the machine only. A CRT/PSX-style filter sits on top to
+   sell the retro-arcade material this whole thing is built from.
    ========================================================= */
 :root {
   --ink: #170b12;
@@ -18,11 +20,14 @@
   --parchment-dim: #b79f8f;
   --win-green: #6bcf7f;
   --danger: #d94f4f;
+  --metal-light: #e2e2e2;
+  --metal-mid: #9a9a9a;
+  --metal-dark: #4a4a4a;
 
   --font-display: 'Monoton', cursive;
   --font-body: 'Chakra Petch', sans-serif;
 
-  --cell-size: clamp(42px, 13.5vw, 78px);
+  --cell-size: clamp(40px, 12vw, 64px);
   --radius-sm: 8px;
   --radius-md: 14px;
   --radius-lg: 22px;
@@ -88,6 +93,46 @@ p { margin: 0; }
 @keyframes screenIn {
   from { opacity: 0; transform: translateY(6px); }
   to   { opacity: 1; transform: translateY(0); }
+}
+
+/* =========================================================
+   Full-screen overlay layers (back to front):
+   vignette -> grain -> scanlines -> screen-flash -> particles
+   All pointer-events:none so they never block input.
+   ========================================================= */
+#vignette {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 500;
+  background: radial-gradient(ellipse 80% 65% at 50% 45%, transparent 55%, rgba(0,0,0,0.55) 100%);
+}
+
+#grain-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 550;
+  opacity: 0.05;
+  background-repeat: repeat;
+  background-size: 48px 48px;
+  mix-blend-mode: overlay;
+}
+
+#scanlines {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 600;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(0,0,0,0.16) 0px,
+    rgba(0,0,0,0.16) 1px,
+    transparent 2px,
+    transparent 3px
+  );
+  mix-blend-mode: multiply;
+  opacity: 0.5;
 }
 
 #fx-canvas {
@@ -235,6 +280,7 @@ p { margin: 0; }
   display: flex;
   flex-direction: column;
   gap: 14px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.6);
 }
 .modal-card h2 {
   font-size: 1.15rem;
@@ -308,7 +354,7 @@ p { margin: 0; }
   justify-content: space-between;
   gap: 10px;
   min-height: 22px;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
 }
 .streak-badge {
   font-size: 0.78rem;
@@ -342,25 +388,53 @@ p { margin: 0; }
 }
 
 /* =========================================================
-   THE MACHINE — the one bold, ornamented object
+   THE MACHINE — the one bold, ornamented object.
+   A slight 3D tilt + heavy layered shadows sell it as a
+   physical cabinet rather than a flat card. The PSX filter
+   (posterize + soft chromatic aberration, defined in index.html)
+   is scoped to this element only, so HUD text stays crisp
+   while the machine itself reads like an old CRT cabinet.
    ========================================================= */
 #machine {
   background: linear-gradient(180deg, var(--wine-light), var(--wine));
   border: 2px solid var(--brass);
   border-radius: var(--radius-lg);
-  padding: 6px 10px 14px;
+  padding: 0 10px 14px;
+  margin-bottom: 14px;
+  transform: perspective(900px) rotateX(3deg);
+  transform-style: preserve-3d;
+  filter: url(#psx-filter);
   box-shadow:
     0 0 0 6px var(--ink-deep),
     0 0 0 7px rgba(201,169,97,0.35),
-    0 14px 30px rgba(0,0,0,0.55),
+    0 22px 34px rgba(0,0,0,0.6),
+    0 3px 0 rgba(255,255,255,0.06) inset,
     inset 0 2px 8px rgba(0,0,0,0.4);
-  margin-bottom: 14px;
+}
+
+/* Lit marquee sign across the top of the cabinet */
+.marquee {
+  background: linear-gradient(180deg, #1a0c14, #0d0509);
+  border: 2px solid var(--brass);
+  border-top: none;
+  border-radius: 0 0 10px 10px;
+  margin: 0 -2px 6px;
+  padding: 5px 10px 6px;
+  text-align: center;
+  box-shadow: inset 0 3px 8px rgba(0,0,0,0.7), 0 3px 6px rgba(0,0,0,0.4);
+}
+.marquee-text {
+  font-family: var(--font-display);
+  font-size: clamp(0.85rem, 3.6vw, 1.15rem);
+  color: var(--neon-cherry);
+  text-shadow: 0 0 4px var(--neon-cherry), 0 0 14px var(--neon-cherry-dim);
+  letter-spacing: 0.04em;
 }
 
 .machine-lights {
   display: flex;
   justify-content: space-evenly;
-  padding: 8px 4px 10px;
+  padding: 6px 4px 8px;
 }
 .light-dot {
   width: 6px;
@@ -376,7 +450,12 @@ p { margin: 0; }
   50% { opacity: 1; transform: scale(1.2); box-shadow: 0 0 10px 2px var(--brass-bright); }
 }
 
-.machine-body { position: relative; }
+.machine-inner {
+  display: flex;
+  align-items: stretch;
+  gap: 6px;
+}
+.machine-body { position: relative; flex: 1; min-width: 0; }
 
 #banner-zone {
   min-height: 34px;
@@ -434,16 +513,35 @@ p { margin: 0; }
   margin-right: auto;
 }
 
-/* Reels */
+/* Recessed glass window holding the reels — dark inset shadow
+   suggests depth into the cabinet, the diagonal glare suggests
+   an actual pane of glass sitting in front of the symbols. */
+.reel-window {
+  position: relative;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow:
+    inset 0 8px 16px rgba(0,0,0,0.85),
+    inset 0 -4px 10px rgba(0,0,0,0.6),
+    inset 0 0 0 2px rgba(0,0,0,0.7);
+}
+.glass-glare {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  background: linear-gradient(115deg,
+    rgba(255,255,255,0.10) 0%,
+    transparent 16%,
+    transparent 78%,
+    rgba(255,255,255,0.05) 100%);
+}
+
 .reels {
   display: flex;
   justify-content: center;
   gap: clamp(3px, 1.1vw, 9px);
   background: var(--ink-deep);
   padding: clamp(6px, 1.8vw, 12px);
-  border-radius: var(--radius-md);
-  border: 1px solid rgba(0,0,0,0.6);
-  box-shadow: inset 0 3px 10px rgba(0,0,0,0.7);
   position: relative;
 }
 .reel {
@@ -453,6 +551,7 @@ p { margin: 0; }
   position: relative;
   border-radius: var(--radius-sm);
   background: linear-gradient(180deg, rgba(0,0,0,0.35), rgba(0,0,0,0.15));
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,0.5);
 }
 .reel::before, .reel::after {
   content: '';
@@ -484,9 +583,15 @@ p { margin: 0; }
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: calc(var(--cell-size) * 0.52);
   flex-shrink: 0;
   position: relative;
+  padding: 8%;
+}
+.sym-icon {
+  width: 100%;
+  height: 100%;
+  display: block;
+  filter: drop-shadow(0 3px 2px rgba(0,0,0,0.55));
 }
 .symbol-cell.winning-cell {
   z-index: 4;
@@ -516,6 +621,80 @@ p { margin: 0; }
   animation: linePulse 0.55s ease-in-out infinite alternate;
 }
 @keyframes linePulse { from { opacity: 0.55; } to { opacity: 1; } }
+
+/* =========================================================
+   The lever — brushed-metal rod on a pivot, red glossy knob.
+   Rotates on a top pivot when pulled (real cabinet levers
+   swing in an arc, not a straight vertical pull), then
+   springs back with a little overshoot.
+   ========================================================= */
+#lever-wrap {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  width: 32px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  cursor: pointer;
+}
+#lever-wrap.disabled { opacity: 0.55; pointer-events: none; }
+
+.lever-base-cap {
+  width: 26px;
+  height: 13px;
+  border-radius: 6px 6px 2px 2px;
+  background: linear-gradient(90deg, var(--metal-dark), var(--metal-light) 45%, var(--metal-mid) 60%, var(--metal-dark));
+  box-shadow: 0 2px 3px rgba(0,0,0,0.5);
+}
+
+#lever-arm {
+  width: 9px;
+  height: 72px;
+  border-radius: 5px;
+  background: linear-gradient(90deg, var(--metal-dark), var(--metal-light) 40%, #fff 48%, var(--metal-mid) 62%, var(--metal-dark));
+  box-shadow: 1px 0 3px rgba(0,0,0,0.45);
+  transform-origin: 50% 0%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  position: relative;
+}
+
+#lever-knob {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #ff9cb0, var(--neon-cherry) 55%, #8a0f2c 100%);
+  box-shadow: 0 3px 6px rgba(0,0,0,0.6), inset 0 -3px 5px rgba(0,0,0,0.35), inset 0 2px 3px rgba(255,255,255,0.4);
+  position: absolute;
+  bottom: -10px;
+}
+
+.lever-base {
+  width: 16px;
+  height: 26px;
+  margin-top: -2px;
+  background: linear-gradient(90deg, var(--metal-dark), var(--metal-mid) 45%, var(--metal-dark));
+  border-radius: 2px;
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,0.3);
+}
+
+#lever-wrap.pulling #lever-arm {
+  transform: rotate(30deg);
+  transition: transform 0.16s cubic-bezier(0.5, 0, 1, 1);
+}
+#lever-wrap:not(.pulling) #lever-arm {
+  animation: leverSpring 0.45s cubic-bezier(0.34, 1.7, 0.64, 1);
+}
+@keyframes leverSpring {
+  0% { transform: rotate(30deg); }
+  55% { transform: rotate(-7deg); }
+  100% { transform: rotate(0deg); }
+}
 
 /* Last win + controls */
 .last-win-display {
@@ -601,6 +780,7 @@ p { margin: 0; }
   text-align: center;
   gap: 6px;
   position: relative;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.05);
 }
 .shop-card::before {
   content: '';
@@ -703,7 +883,7 @@ p { margin: 0; }
 
 @media (max-height: 700px) {
   .logo { font-size: clamp(2.2rem, 11vw, 3.4rem); }
-  #machine { padding: 4px 8px 10px; }
+  #machine { padding: 0 8px 10px; }
 }
 
 /* =========================================================
@@ -715,4 +895,5 @@ p { margin: 0; }
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
   }
+  #machine { transform: none; }
 }
