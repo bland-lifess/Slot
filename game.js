@@ -24,16 +24,69 @@ const CONFIG = {
 // Tuned via Monte Carlo simulation of full runs (see design notes in README) so
 // round 1 is very winnable and the climb gets meaningfully harder from there.
 const SYMBOLS = {
-  cherry: { emoji: '🍒', name: 'Cherry', pay: { 3: 8, 4: 20, 5: 50 } },
-  lemon: { emoji: '🍋', name: 'Lemon', pay: { 3: 12, 4: 28, 5: 70 } },
-  bell: { emoji: '🔔', name: 'Bell', pay: { 3: 18, 4: 45, 5: 110 } },
-  gem: { emoji: '💎', name: 'Gem', pay: { 3: 30, 4: 75, 5: 200 } },
-  seven: { emoji: '7️⃣', name: 'Seven', pay: { 3: 55, 4: 140, 5: 380 } },
-  wild: { emoji: '⭐', name: 'Star', isWild: true, pay: { 3: 95, 4: 230, 5: 580 } },
-  clover: { emoji: '🍀', name: 'Clover', isClover: true, pay: { 3: 12, 4: 32, 5: 80 } },
-  coin: { emoji: '💰', name: 'Coin', isCoin: true, flatValue: 9 },
-  skull: { emoji: '💀', name: 'Skull', isSkull: true },
-  bonus: { emoji: '🎰', name: 'Bonus', isScatter: true },
+  cherry: { name: 'Cherry', pay: { 3: 8, 4: 20, 5: 50 }, svg: `
+    <path d="M32 13 C30 21,26 27,24 31 M32 13 C34 19,38 23,41 27" stroke="#3d7d3d" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <ellipse cx="25" cy="15" rx="9" ry="5" fill="#4caf50" stroke="#2c5c2c" stroke-width="1.5" transform="rotate(-25 25 15)"/>
+    <circle cx="23" cy="42" r="13" fill="#d81c3f" stroke="#6b0e1f" stroke-width="2.5"/>
+    <circle cx="41" cy="39" r="13" fill="#e8354f" stroke="#6b0e1f" stroke-width="2.5"/>
+    <ellipse cx="18" cy="37" rx="3" ry="2" fill="#ff9caf" transform="rotate(-30 18 37)"/>
+    <ellipse cx="36" cy="34" rx="3" ry="2" fill="#ff9caf" transform="rotate(-30 36 34)"/>` },
+
+  lemon: { name: 'Lemon', pay: { 3: 12, 4: 28, 5: 70 }, svg: `
+    <path d="M32 8 C44 8,51 19,51 32 C51 46,43 57,32 57 C21 57,13 46,13 32 C13 19,20 8,32 8 Z" fill="#f6d743" stroke="#a8790f" stroke-width="2.5"/>
+    <path d="M29 9 C31 5,35 5,37 8" stroke="#6f9c3d" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+    <ellipse cx="23" cy="23" rx="6" ry="4" fill="#fff2a8" opacity="0.85" transform="rotate(-35 23 23)"/>` },
+
+  bell: { name: 'Bell', pay: { 3: 18, 4: 45, 5: 110 }, svg: `
+    <rect x="28" y="6" width="8" height="9" rx="2" fill="#8a6a1f"/>
+    <path d="M32 13 C24 13,22 20,22 24 C13 28,10 38,10 45 L54 45 C54 38,51 28,42 24 C42 20,40 13,32 13 Z" fill="#e8c77e" stroke="#7a5c17" stroke-width="2.5"/>
+    <rect x="8" y="45" width="48" height="7" rx="3.5" fill="#c9a961" stroke="#7a5c17" stroke-width="2"/>
+    <circle cx="32" cy="57" r="5.5" fill="#c9a961" stroke="#7a5c17" stroke-width="2"/>
+    <ellipse cx="23" cy="27" rx="4" ry="9" fill="#fff6da" opacity="0.55"/>` },
+
+  gem: { name: 'Gem', pay: { 3: 30, 4: 75, 5: 200 }, svg: `
+    <polygon points="32,8 48,24 32,58 16,24" fill="#3fc9e8" stroke="#0f6a80" stroke-width="2.5" stroke-linejoin="round"/>
+    <polygon points="32,8 48,24 32,24" fill="#a3f0ff"/>
+    <polygon points="16,24 32,24 32,8" fill="#6fe0f7"/>
+    <polygon points="16,24 32,24 32,58" fill="#1f9ab8"/>
+    <polygon points="48,24 32,24 32,58" fill="#2fb5d4"/>
+    <line x1="16" y1="24" x2="48" y2="24" stroke="#0f6a80" stroke-width="1.5"/>
+    <line x1="32" y1="24" x2="32" y2="58" stroke="#0f6a80" stroke-width="1.5"/>` },
+
+  seven: { name: 'Seven', pay: { 3: 55, 4: 140, 5: 380 }, svg: `
+    <text x="33" y="49" font-family="Arial,Helvetica,sans-serif" font-weight="900" font-size="44" text-anchor="middle" fill="#6b0e1f">7</text>
+    <text x="31" y="47" font-family="Arial,Helvetica,sans-serif" font-weight="900" font-size="44" text-anchor="middle" fill="#ff3d5c">7</text>` },
+
+  wild: { name: 'Star', isWild: true, pay: { 3: 95, 4: 230, 5: 580 }, svg: `
+    <polygon points="32,8 37.9,23.9 54.8,24.6 41.5,35.1 46.1,51.4 32,42 17.9,51.4 22.5,35.1 9.2,24.6 26.1,23.9" fill="#ffd23f" stroke="#a8720a" stroke-width="2.5" stroke-linejoin="round"/>
+    <polygon points="32,16 35.5,25.5 45.5,26 38,32.5 40.5,42 32,36.5 23.5,42 26,32.5 18.5,26 28.5,25.5" fill="#fff3b0" opacity="0.6"/>` },
+
+  clover: { name: 'Clover', isClover: true, pay: { 3: 12, 4: 32, 5: 80 }, svg: `
+    <path d="M32 34 C32 43,30 51,28 56" stroke="#3d7d3d" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+    <circle cx="22" cy="22" r="11" fill="#43a047" stroke="#255c28" stroke-width="2"/>
+    <circle cx="42" cy="22" r="11" fill="#4caf50" stroke="#255c28" stroke-width="2"/>
+    <circle cx="22" cy="42" r="11" fill="#4caf50" stroke="#255c28" stroke-width="2"/>
+    <circle cx="42" cy="42" r="11" fill="#43a047" stroke="#255c28" stroke-width="2"/>
+    <circle cx="32" cy="32" r="7" fill="#5fc164"/>` },
+
+  coin: { name: 'Coin', isCoin: true, flatValue: 9, svg: `
+    <circle cx="32" cy="32" r="24" fill="#f0cf6b" stroke="#8a6a1f" stroke-width="3"/>
+    <circle cx="32" cy="32" r="17" fill="none" stroke="#c9a961" stroke-width="2.5"/>
+    <text x="32" y="41" font-family="Arial,sans-serif" font-weight="900" font-size="23" text-anchor="middle" fill="#8a6a1f">$</text>
+    <path d="M13 21 A24 24 0 0 1 30 9" stroke="#fff6da" stroke-width="4" fill="none" stroke-linecap="round" opacity="0.7"/>` },
+
+  skull: { name: 'Skull', isSkull: true, svg: `
+    <path d="M32 8 C46 8,52 20,50 32 C50 36,48 38,46 40 L46 46 L40 46 L40 42 L36 42 L36 46 L28 46 L28 42 L24 42 L24 46 L18 46 L18 40 C16 38,14 36,14 32 C12 20,18 8,32 8 Z" fill="#e8e4d8" stroke="#5c574a" stroke-width="2.5"/>
+    <ellipse cx="23" cy="28" rx="6" ry="7" fill="#2a2620"/>
+    <ellipse cx="41" cy="28" rx="6" ry="7" fill="#2a2620"/>
+    <path d="M32 32 L28.5 39 L35.5 39 Z" fill="#2a2620"/>` },
+
+  bonus: { name: 'Bonus', isScatter: true, svg: `
+    <path d="M32 26 C22 26,18 18,24 14 C29 11,32 18,32 26 Z" fill="#ffd700" stroke="#8a6a1f" stroke-width="2"/>
+    <path d="M32 26 C42 26,46 18,40 14 C35 11,32 18,32 26 Z" fill="#ffd700" stroke="#8a6a1f" stroke-width="2"/>
+    <rect x="12" y="28" width="40" height="28" fill="#c77dff" stroke="#6a2f99" stroke-width="2.5"/>
+    <rect x="12" y="28" width="40" height="8" fill="#a855f7" stroke="#6a2f99" stroke-width="2"/>
+    <rect x="27" y="28" width="10" height="28" fill="#ffd700" stroke="#8a6a1f" stroke-width="2"/>` },
 };
 
 // Weighted reel strip — repeats = frequency. Shared by all 5 reels.
@@ -171,8 +224,9 @@ function makeSymbolCell(symKey, reelIdx, row, isFinal) {
   const div = document.createElement('div');
   div.className = 'symbol-cell' + (isFinal ? ' final-symbol' : '');
   div.dataset.reel = reelIdx;
+  div.dataset.symbol = symKey;
   if (isFinal) div.dataset.row = row;
-  div.textContent = SYMBOLS[symKey].emoji;
+  div.innerHTML = `<svg class="sym-icon" viewBox="0 0 64 64" aria-hidden="true">${SYMBOLS[symKey].svg}</svg>`;
   return div;
 }
 
@@ -240,12 +294,42 @@ function applyLuckyModifiers(grid) {
   grid[rr][1] = highTier[Math.floor(Math.random() * highTier.length)];
 }
 
+// Builds a translateY keyframe list that only ever stops on whole-cell
+// boundaries. The reel travels `totalCells` cells: most of them blur by
+// as fast, uniform steps() ticks, then the last few are broken into
+// individually-timed clicks with growing gaps between them, so the motion
+// visibly grinds to a halt cell-by-cell instead of easing to a random
+// in-between height. Every value here is an exact multiple of cellSize,
+// so the final rest position is always perfectly grid-aligned.
+function buildReelKeyframes(totalCells, cellSize) {
+  const decelSteps = Math.min(5, Math.max(1, totalCells - 3));
+  const fastSteps = totalCells - decelSteps;
+  const fastTimeFrac = 0.4;
+
+  const keyframes = [{ transform: 'translateY(0px)', offset: 0, easing: `steps(${fastSteps}, end)` }];
+  keyframes.push({ transform: `translateY(-${fastSteps * cellSize}px)`, offset: fastTimeFrac });
+
+  const weights = Array.from({ length: decelSteps }, (_, i) => i + 1); // 1,2,3... => growing gaps
+  const weightSum = weights.reduce((a, b) => a + b, 0);
+  let cumulative = 0;
+  const tickOffsets = [];
+  for (let i = 0; i < decelSteps; i++) {
+    keyframes[keyframes.length - 1].easing = 'steps(1, end)';
+    cumulative += weights[i];
+    const frac = i === decelSteps - 1 ? 1 : fastTimeFrac + (1 - fastTimeFrac) * (cumulative / weightSum);
+    const cellsSoFar = fastSteps + i + 1;
+    keyframes.push({ transform: `translateY(-${cellsSoFar * cellSize}px)`, offset: frac });
+    tickOffsets.push(frac);
+  }
+  return { keyframes, tickOffsets };
+}
+
 function animateReel(reelIndex, finalSymbols, startDelay, duration) {
   return new Promise((resolve) => {
     const reelEl = document.querySelector(`.reel[data-reel="${reelIndex}"]`);
     const stripEl = reelEl.querySelector('.reel-strip');
     const cellSize = getCellSizePx();
-    const prefixCount = 16 + Math.floor(Math.random() * 5);
+    const prefixCount = 14 + Math.floor(Math.random() * 5);
     const suffixCount = 2;
 
     stripEl.style.transition = 'none';
@@ -261,20 +345,19 @@ function animateReel(reelIndex, finalSymbols, startDelay, duration) {
     }
 
     reelEl.dataset.prefixCount = prefixCount;
-    const totalDistance = prefixCount * cellSize;
+    const { keyframes, tickOffsets } = buildReelKeyframes(prefixCount, cellSize);
 
     // Force reflow so the reset transform above is committed before animating.
     void stripEl.offsetHeight;
 
     setTimeout(() => {
-      const anim = stripEl.animate(
-        [
-          { transform: 'translateY(0px)' },
-          { transform: `translateY(-${totalDistance + cellSize * 0.12}px)`, offset: 0.82 },
-          { transform: `translateY(-${totalDistance}px)` },
-        ],
-        { duration, easing: 'cubic-bezier(0.22, 0.61, 0.36, 1)', fill: 'forwards' }
-      );
+      // Soft mechanical clicks during the decelerating tail, landing exactly
+      // in sync with each visible cell-jump.
+      tickOffsets.slice(0, -1).forEach((frac) => {
+        setTimeout(() => SFX.playReelTick(reelIndex), frac * duration);
+      });
+
+      const anim = stripEl.animate(keyframes, { duration, fill: 'forwards' });
       anim.onfinish = () => {
         SFX.playReelStop(reelIndex);
         reelEl.classList.add('bounce');
@@ -537,6 +620,33 @@ function resizeCanvas() {
 }
 window.addEventListener('resize', resizeCanvas);
 resizeCanvas();
+
+// Cheap film-grain / CRT static: generate one small noise tile via an
+// offscreen canvas, then just jitter its background-position on an
+// interval. Far cheaper than redrawing full-screen random pixels every
+// frame, and reads the same to the eye.
+function initGrainTexture() {
+  const size = 48;
+  const c = document.createElement('canvas');
+  c.width = size;
+  c.height = size;
+  const cx = c.getContext('2d');
+  const imgData = cx.createImageData(size, size);
+  for (let i = 0; i < imgData.data.length; i += 4) {
+    const v = Math.random() * 255;
+    imgData.data[i] = v;
+    imgData.data[i + 1] = v;
+    imgData.data[i + 2] = v;
+    imgData.data[i + 3] = 255;
+  }
+  cx.putImageData(imgData, 0, 0);
+  const overlay = document.getElementById('grain-overlay');
+  overlay.style.backgroundImage = `url(${c.toDataURL()})`;
+  setInterval(() => {
+    overlay.style.backgroundPosition = `${Math.floor(Math.random() * size)}px ${Math.floor(Math.random() * size)}px`;
+  }, 90);
+}
+initGrainTexture();
 
 function spawnParticles(x, y, count, colors, shape) {
   for (let i = 0; i < count; i++) {
@@ -847,6 +957,18 @@ function setSpinButtonEnabled(enabled) {
   const btn = document.getElementById('spin-btn');
   btn.disabled = !enabled;
   btn.classList.toggle('disabled', !enabled);
+  const lever = document.getElementById('lever-wrap');
+  lever.disabled = !enabled;
+  lever.classList.toggle('disabled', !enabled);
+}
+
+function pullLever() {
+  const lever = document.getElementById('lever-wrap');
+  if (lever.classList.contains('pulling')) return;
+  lever.classList.add('pulling');
+  SFX.playClick();
+  setTimeout(() => lever.classList.remove('pulling'), 500);
+  spin();
 }
 function showCashOutButton() { document.getElementById('cashout-btn').classList.remove('hidden'); }
 function hideCashOutButton() { document.getElementById('cashout-btn').classList.add('hidden'); }
@@ -904,6 +1026,7 @@ document.querySelectorAll('.close-modal').forEach((btn) => {
 });
 
 document.getElementById('spin-btn').addEventListener('click', spin);
+document.getElementById('lever-wrap').addEventListener('click', pullLever);
 document.getElementById('cashout-btn').addEventListener('click', cashOut);
 
 document.getElementById('mute-btn').addEventListener('click', () => {
