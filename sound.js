@@ -74,6 +74,13 @@ class SoundEngine {
     this._tone('triangle', 200 + (index || 0) * 8, t, 0.1, 0.28, 85);
   }
 
+  playReelTick(index) {
+    this.resume();
+    if (!this.ctx) return;
+    const t = this.ctx.currentTime;
+    this._tone('square', 380 + (index || 0) * 6, t, 0.045, 0.1, 260);
+  }
+
   startSpinLoop() {
     this.resume();
     if (!this.ctx || this.spinInterval) return;
