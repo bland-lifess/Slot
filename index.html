@@ -13,7 +13,33 @@
 </head>
 <body>
 
+<!-- Hidden filter defs: posterized color + chromatic aberration, applied to
+     the machine only (see #machine in style.css) for a PS1-era / low-fi CRT
+     look without paying the performance cost of filtering the whole page. -->
+<svg width="0" height="0" style="position:absolute;overflow:hidden" aria-hidden="true">
+  <defs>
+    <filter id="psx-filter" x="-15%" y="-15%" width="130%" height="130%" color-interpolation-filters="sRGB">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="0.35" result="soft"/>
+      <feComponentTransfer in="soft" result="quantized">
+        <feFuncR type="discrete" tableValues="0 0.14 0.29 0.43 0.57 0.71 0.86 1"/>
+        <feFuncG type="discrete" tableValues="0 0.14 0.29 0.43 0.57 0.71 0.86 1"/>
+        <feFuncB type="discrete" tableValues="0 0.17 0.33 0.5 0.67 0.83 1"/>
+      </feComponentTransfer>
+      <feOffset in="quantized" dx="1.1" dy="0" result="rShift"/>
+      <feColorMatrix in="rShift" type="matrix" values="1 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0" result="rOnly"/>
+      <feOffset in="quantized" dx="-1.1" dy="0" result="bShift"/>
+      <feColorMatrix in="bShift" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 1 0 0  0 0 0 1 0" result="bOnly"/>
+      <feColorMatrix in="quantized" type="matrix" values="0 0 0 0 0  0 1 0 0 0  0 0 0 0 0  0 0 0 1 0" result="gOnly"/>
+      <feBlend in="rOnly" in2="gOnly" mode="screen" result="rg"/>
+      <feBlend in="rg" in2="bOnly" mode="screen"/>
+    </filter>
+  </defs>
+</svg>
+
 <canvas id="fx-canvas" aria-hidden="true"></canvas>
+<div id="grain-overlay" aria-hidden="true"></div>
+<div id="scanlines" aria-hidden="true"></div>
+<div id="vignette" aria-hidden="true"></div>
 <div id="screen-flash" aria-hidden="true"></div>
 
 <div id="app">
@@ -77,16 +103,28 @@
     </div>
 
     <div id="machine">
+      <div class="marquee"><span class="marquee-text">SLOT SURGE</span></div>
       <div class="machine-lights" id="lights-top"></div>
 
-      <div class="machine-body">
-        <div id="banner-zone">
-          <div id="win-banner" class="win-banner hidden"></div>
-        </div>
-        <div id="free-spins-tag" class="free-spins-tag hidden">FREE SPINS · <span id="free-spins-count">0</span> LEFT · 2x</div>
+      <div class="machine-inner">
+        <div class="machine-body">
+          <div id="banner-zone">
+            <div id="win-banner" class="win-banner hidden"></div>
+          </div>
+          <div id="free-spins-tag" class="free-spins-tag hidden">FREE SPINS · <span id="free-spins-count">0</span> LEFT · 2x</div>
 
-        <div id="reels" class="reels"></div>
-        <svg id="payline-svg"></svg>
+          <div class="reel-window">
+            <div id="reels" class="reels"></div>
+            <svg id="payline-svg"></svg>
+            <div class="glass-glare" aria-hidden="true"></div>
+          </div>
+        </div>
+
+        <button id="lever-wrap" aria-label="Pull lever to spin">
+          <span class="lever-base-cap"></span>
+          <span id="lever-arm"><span id="lever-knob"></span></span>
+          <span class="lever-base"></span>
+        </button>
       </div>
 
       <div class="machine-lights" id="lights-bottom"></div>
