@@ -5,41 +5,71 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Slot Surge</title>
 <meta name="description" content="A high-dopamine slot machine roguelike. Spin the reels, chase the quota, upgrade the machine.">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.85em%22 font-size=%2290%22>🎰</text></svg>">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22><rect width=%2264%22 height=%2264%22 fill=%22%230a0a0a%22/><path d=%22M8 40 L26 12 L34 12 L16 40 Z%22 fill=%22%23e0102a%22/><path d=%22M30 52 L48 24 L56 24 L38 52 Z%22 fill=%22%23f5f5f2%22/></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=Monoton&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Oswald:wght@400;500;600;700&family=Orbitron:wght@600;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<!-- Hidden filter defs: posterized color + chromatic aberration, applied to
-     the machine only (see #machine in style.css) for a PS1-era / low-fi CRT
-     look without paying the performance cost of filtering the whole page. -->
+<!-- Reusable glossy-material gradients, shared by every symbol/icon so
+     each cell only needs to reference url(#id) instead of shipping its
+     own <defs>. Keeps every icon consistently "rendered" rather than flat. -->
 <svg width="0" height="0" style="position:absolute;overflow:hidden" aria-hidden="true">
   <defs>
-    <filter id="psx-filter" x="-15%" y="-15%" width="130%" height="130%" color-interpolation-filters="sRGB">
-      <feGaussianBlur in="SourceGraphic" stdDeviation="0.35" result="soft"/>
-      <feComponentTransfer in="soft" result="quantized">
-        <feFuncR type="discrete" tableValues="0 0.14 0.29 0.43 0.57 0.71 0.86 1"/>
-        <feFuncG type="discrete" tableValues="0 0.14 0.29 0.43 0.57 0.71 0.86 1"/>
-        <feFuncB type="discrete" tableValues="0 0.17 0.33 0.5 0.67 0.83 1"/>
-      </feComponentTransfer>
-      <feOffset in="quantized" dx="1.1" dy="0" result="rShift"/>
-      <feColorMatrix in="rShift" type="matrix" values="1 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0" result="rOnly"/>
-      <feOffset in="quantized" dx="-1.1" dy="0" result="bShift"/>
-      <feColorMatrix in="bShift" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 1 0 0  0 0 0 1 0" result="bOnly"/>
-      <feColorMatrix in="quantized" type="matrix" values="0 0 0 0 0  0 1 0 0 0  0 0 0 0 0  0 0 0 1 0" result="gOnly"/>
-      <feBlend in="rOnly" in2="gOnly" mode="screen" result="rg"/>
-      <feBlend in="rg" in2="bOnly" mode="screen"/>
-    </filter>
+    <radialGradient id="gRed" cx="35%" cy="28%" r="75%">
+      <stop offset="0%" stop-color="#ff8a97"/>
+      <stop offset="35%" stop-color="#e0102a"/>
+      <stop offset="100%" stop-color="#6e0716"/>
+    </radialGradient>
+    <radialGradient id="gRedDeep" cx="35%" cy="28%" r="75%">
+      <stop offset="0%" stop-color="#e14b5c"/>
+      <stop offset="45%" stop-color="#8f0a1c"/>
+      <stop offset="100%" stop-color="#41060d"/>
+    </radialGradient>
+    <linearGradient id="gChrome" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f5f5f2"/>
+      <stop offset="30%" stop-color="#c7c7cb"/>
+      <stop offset="55%" stop-color="#8a8a90"/>
+      <stop offset="80%" stop-color="#d8d8db"/>
+      <stop offset="100%" stop-color="#5c5c60"/>
+    </linearGradient>
+    <radialGradient id="gChromeDome" cx="35%" cy="28%" r="75%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="40%" stop-color="#d4d4d8"/>
+      <stop offset="100%" stop-color="#6b6b70"/>
+    </radialGradient>
+    <linearGradient id="gDark" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#3a3a3e"/>
+      <stop offset="60%" stop-color="#19191b"/>
+      <stop offset="100%" stop-color="#050506"/>
+    </linearGradient>
+    <radialGradient id="gBone" cx="35%" cy="28%" r="75%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="50%" stop-color="#e5e3dd"/>
+      <stop offset="100%" stop-color="#a8a49a"/>
+    </radialGradient>
+    <radialGradient id="gYellow" cx="35%" cy="28%" r="75%">
+      <stop offset="0%" stop-color="#fff6b0"/>
+      <stop offset="45%" stop-color="#f5cf2e"/>
+      <stop offset="100%" stop-color="#9c7a0a"/>
+    </radialGradient>
+    <radialGradient id="gGreen" cx="35%" cy="28%" r="75%">
+      <stop offset="0%" stop-color="#a8f0ab"/>
+      <stop offset="45%" stop-color="#3fa84a"/>
+      <stop offset="100%" stop-color="#155c1e"/>
+    </radialGradient>
+    <radialGradient id="gCyan" cx="35%" cy="28%" r="75%">
+      <stop offset="0%" stop-color="#d6faff"/>
+      <stop offset="45%" stop-color="#3fc9e8"/>
+      <stop offset="100%" stop-color="#0f6a80"/>
+    </radialGradient>
   </defs>
 </svg>
 
-<canvas id="fx-canvas" aria-hidden="true"></canvas>
-<div id="grain-overlay" aria-hidden="true"></div>
-<div id="scanlines" aria-hidden="true"></div>
 <div id="vignette" aria-hidden="true"></div>
+<canvas id="fx-canvas" aria-hidden="true"></canvas>
 <div id="screen-flash" aria-hidden="true"></div>
 
 <div id="app">
@@ -47,26 +77,26 @@
   <!-- ============ TITLE ============ -->
   <section id="title-screen" class="screen">
     <div class="title-wrap">
-      <h1 class="logo">SLOT<br>SURGE</h1>
-      <p class="tagline">Spin the reels. Beat the quota. Trick out the machine.</p>
-      <button id="start-btn" class="btn btn-spin-cta">▶ START</button>
-      <button id="howto-btn" class="btn-link">how does this work?</button>
+      <div class="slash-block"><h1 class="logo">SLOT<br>SURGE</h1></div>
+      <p class="tagline">SPIN THE REELS. BEAT THE QUOTA. RUN THE TABLE.</p>
+      <button id="start-btn" class="btn btn-primary btn-huge">START</button>
+      <button id="howto-btn" class="btn-link">HOW TO PLAY</button>
     </div>
   </section>
 
   <!-- ============ HOW TO PLAY ============ -->
   <section id="howto-modal" class="modal hidden">
     <div class="modal-card">
-      <h2>How it works</h2>
+      <h2>HOW IT WORKS</h2>
       <ul class="howto-list">
-        <li><span class="howto-icon">🎰</span> Spin the 5 reels. Match 3+ symbols in a row across any of the 5 paylines to win coins.</li>
-        <li><span class="howto-icon">🎯</span> Every round has a quota. Earn that many coins before your spins run out, or the run ends.</li>
-        <li><span class="howto-icon">🍀</span> Clovers fill your luck meter. Full meter guarantees a stacked lucky spin, no skulls.</li>
-        <li><span class="howto-icon">🔔</span> Three or more Bonus symbols anywhere trigger free spins at double pay.</li>
-        <li><span class="howto-icon">🔥</span> Back-to-back wins build a streak multiplier. A dry spin resets it.</li>
-        <li><span class="howto-icon">🛒</span> Clear the quota and spend your coins in the shop — thicken the reels with better symbols, thin out the junk, or buy permanent perks.</li>
+        <li><span class="howto-tag">SPIN</span> Match 3+ symbols in a row across any of the 5 paylines to win coins.</li>
+        <li><span class="howto-tag">QUOTA</span> Earn the target amount before your spins run out, or the run ends.</li>
+        <li><span class="howto-tag">LUCK</span> Clovers fill your luck meter. Full meter guarantees a stacked lucky spin.</li>
+        <li><span class="howto-tag">BONUS</span> 3+ scatters anywhere trigger free spins at double pay.</li>
+        <li><span class="howto-tag">STREAK</span> Back-to-back wins build a multiplier. A dry spin resets it.</li>
+        <li><span class="howto-tag">SHOP</span> Clear the quota, then spend coins to upgrade the reels.</li>
       </ul>
-      <button class="btn btn-primary close-modal">got it</button>
+      <button class="btn btn-primary close-modal">GOT IT</button>
     </div>
   </section>
 
@@ -75,65 +105,77 @@
 
     <header id="hud">
       <div class="hud-stat">
-        <span class="hud-label">round</span>
+        <span class="hud-label">ROUND</span>
         <span class="hud-value" id="round-display">1</span>
       </div>
       <div class="hud-stat hud-stat-coins">
-        <span class="hud-label">coins</span>
+        <span class="hud-label">COINS</span>
         <span class="hud-value" id="coin-display">0</span>
       </div>
       <div class="hud-stat">
-        <span class="hud-label">spins</span>
+        <span class="hud-label">SPINS</span>
         <span class="hud-value" id="spins-display">10</span>
       </div>
-      <button id="mute-btn" class="icon-btn" aria-label="Toggle sound">🔊</button>
+      <button id="mute-btn" class="icon-btn" aria-label="Toggle sound"></button>
     </header>
 
     <div class="quota-bar-wrap">
       <div class="quota-bar"><div class="quota-bar-fill" id="quota-fill"></div></div>
-      <div class="quota-bar-label"><span id="quota-current">0</span> / <span id="quota-target">120</span> quota</div>
+      <div class="quota-bar-label"><span id="quota-current">0</span> / <span id="quota-target">120</span> QUOTA</div>
     </div>
 
     <div class="meta-strip">
-      <div id="streak-badge" class="streak-badge hidden">🔥 <span id="streak-mult">x1.0</span></div>
+      <div id="streak-badge" class="streak-badge hidden">STREAK <span id="streak-mult">x1.0</span></div>
       <div class="luck-meter-wrap" title="Luck meter — fill with clovers">
-        <span class="luck-icon">🍀</span>
+        <span class="luck-icon" id="luck-icon"></span>
         <div class="luck-meter"><div class="luck-meter-fill" id="luck-fill"></div></div>
       </div>
     </div>
 
-    <div id="machine">
-      <div class="marquee"><span class="marquee-text">SLOT SURGE</span></div>
-      <div class="machine-lights" id="lights-top"></div>
+    <!-- 3D parallax machine. #machine-3d is rotated by pointer/tilt input in
+         game.js; children at different translateZ depths shift at different
+         rates as it rotates, which is what produces the parallax. -->
+    <div id="machine-scene">
+      <div id="machine-3d">
+        <div id="machine-glow" aria-hidden="true"></div>
 
-      <div class="machine-inner">
-        <div class="machine-body">
-          <div id="banner-zone">
-            <div id="win-banner" class="win-banner hidden"></div>
+        <div id="machine">
+          <div class="marquee"><span class="marquee-text">SLOT SURGE</span></div>
+          <div class="machine-lights" id="lights-top"></div>
+
+          <div class="machine-inner">
+            <div class="machine-body">
+              <div id="banner-zone">
+                <div id="win-banner" class="win-banner hidden"></div>
+              </div>
+              <div id="free-spins-tag" class="free-spins-tag hidden">FREE SPINS · <span id="free-spins-count">0</span> LEFT · 2x</div>
+
+              <div class="reel-window">
+                <div id="reels" class="reels"></div>
+                <svg id="payline-svg"></svg>
+                <div class="glass-glare" aria-hidden="true"></div>
+              </div>
+            </div>
+
+            <button id="lever-wrap" aria-label="Pull lever to spin">
+              <span class="lever-base-cap"></span>
+              <span id="lever-arm"><span id="lever-knob"></span></span>
+              <span class="lever-base"></span>
+            </button>
           </div>
-          <div id="free-spins-tag" class="free-spins-tag hidden">FREE SPINS · <span id="free-spins-count">0</span> LEFT · 2x</div>
 
-          <div class="reel-window">
-            <div id="reels" class="reels"></div>
-            <svg id="payline-svg"></svg>
-            <div class="glass-glare" aria-hidden="true"></div>
+          <div class="machine-lights" id="lights-bottom"></div>
+          <div class="bottom-tray" aria-hidden="true">
+            <span></span><span></span><span></span><span></span><span></span>
           </div>
         </div>
-
-        <button id="lever-wrap" aria-label="Pull lever to spin">
-          <span class="lever-base-cap"></span>
-          <span id="lever-arm"><span id="lever-knob"></span></span>
-          <span class="lever-base"></span>
-        </button>
       </div>
-
-      <div class="machine-lights" id="lights-bottom"></div>
     </div>
 
     <div id="last-win-display" class="last-win-display"></div>
 
     <div id="controls">
-      <button id="cashout-btn" class="btn btn-gold hidden">cash out</button>
+      <button id="cashout-btn" class="btn btn-gold hidden">CASH OUT</button>
       <button id="spin-btn" class="btn btn-spin">
         <span class="spin-btn-label">SPIN</span>
       </button>
@@ -143,29 +185,29 @@
   <!-- ============ SHOP ============ -->
   <section id="shop-screen" class="screen hidden">
     <div class="shop-header">
-      <h2>round <span id="shop-round">1</span> cleared</h2>
-      <div class="shop-coins">🪙 <span id="shop-coin-display">0</span></div>
+      <h2>ROUND <span id="shop-round">1</span> CLEARED</h2>
+      <div class="shop-coins"><span class="inline-icon" id="shop-coin-icon"></span> <span id="shop-coin-display">0</span></div>
     </div>
 
     <div id="shop-cards" class="shop-cards"></div>
 
     <div class="shop-actions">
-      <button id="reroll-btn" class="btn btn-secondary">reroll · <span id="reroll-cost">20</span></button>
-      <button id="continue-btn" class="btn btn-primary btn-huge">next round</button>
+      <button id="reroll-btn" class="btn btn-secondary">REROLL · <span id="reroll-cost">20</span></button>
+      <button id="continue-btn" class="btn btn-primary btn-huge">NEXT ROUND</button>
     </div>
   </section>
 
   <!-- ============ GAME OVER ============ -->
   <section id="gameover-screen" class="screen hidden">
-    <h2 class="gameover-title">out of spins</h2>
-    <p class="gameover-sub">the machine wins this time.</p>
+    <div class="slash-block"><h2 class="gameover-title">OUT OF SPINS</h2></div>
+    <p class="gameover-sub">THE MACHINE WINS THIS TIME.</p>
     <div class="stats-grid">
-      <div class="stat-box"><span class="stat-value" id="stat-rounds">0</span><span class="stat-label">rounds cleared</span></div>
-      <div class="stat-box"><span class="stat-value" id="stat-coins">0</span><span class="stat-label">coins earned</span></div>
-      <div class="stat-box"><span class="stat-value" id="stat-bigwin">0</span><span class="stat-label">biggest win</span></div>
-      <div class="stat-box"><span class="stat-value" id="stat-streak">0</span><span class="stat-label">best streak</span></div>
+      <div class="stat-box"><span class="stat-value" id="stat-rounds">0</span><span class="stat-label">ROUNDS CLEARED</span></div>
+      <div class="stat-box"><span class="stat-value" id="stat-coins">0</span><span class="stat-label">COINS EARNED</span></div>
+      <div class="stat-box"><span class="stat-value" id="stat-bigwin">0</span><span class="stat-label">BIGGEST WIN</span></div>
+      <div class="stat-box"><span class="stat-value" id="stat-streak">0</span><span class="stat-label">BEST STREAK</span></div>
     </div>
-    <button id="restart-btn" class="btn btn-spin-cta">↻ run it back</button>
+    <button id="restart-btn" class="btn btn-primary btn-huge">RUN IT BACK</button>
   </section>
 
 </div>
