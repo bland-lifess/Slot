@@ -25,68 +25,66 @@ const CONFIG = {
 // round 1 is very winnable and the climb gets meaningfully harder from there.
 const SYMBOLS = {
   cherry: { name: 'Cherry', pay: { 3: 8, 4: 20, 5: 50 }, svg: `
-    <path d="M32 13 C30 21,26 27,24 31 M32 13 C34 19,38 23,41 27" stroke="#3d7d3d" stroke-width="3" fill="none" stroke-linecap="round"/>
-    <ellipse cx="25" cy="15" rx="9" ry="5" fill="#4caf50" stroke="#2c5c2c" stroke-width="1.5" transform="rotate(-25 25 15)"/>
-    <circle cx="23" cy="42" r="13" fill="#d81c3f" stroke="#6b0e1f" stroke-width="2.5"/>
-    <circle cx="41" cy="39" r="13" fill="#e8354f" stroke="#6b0e1f" stroke-width="2.5"/>
-    <ellipse cx="18" cy="37" rx="3" ry="2" fill="#ff9caf" transform="rotate(-30 18 37)"/>
-    <ellipse cx="36" cy="34" rx="3" ry="2" fill="#ff9caf" transform="rotate(-30 36 34)"/>` },
+    <path d="M32 13 C30 21,26 27,24 31 M32 13 C34 19,38 23,41 27" stroke="#2c5c2c" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <ellipse cx="25" cy="15" rx="9" ry="5" fill="url(#gGreen)" stroke="#1c3d1c" stroke-width="1.5" transform="rotate(-25 25 15)"/>
+    <circle cx="23" cy="42" r="13" fill="url(#gRed)" stroke="#3d0810" stroke-width="2"/>
+    <circle cx="41" cy="39" r="13" fill="url(#gRedDeep)" stroke="#3d0810" stroke-width="2"/>
+    <ellipse cx="18" cy="36" rx="2.6" ry="1.6" fill="#fff" opacity="0.75" transform="rotate(-30 18 36)"/>
+    <ellipse cx="36" cy="33" rx="2.6" ry="1.6" fill="#fff" opacity="0.6" transform="rotate(-30 36 33)"/>` },
 
   lemon: { name: 'Lemon', pay: { 3: 12, 4: 28, 5: 70 }, svg: `
-    <path d="M32 8 C44 8,51 19,51 32 C51 46,43 57,32 57 C21 57,13 46,13 32 C13 19,20 8,32 8 Z" fill="#f6d743" stroke="#a8790f" stroke-width="2.5"/>
-    <path d="M29 9 C31 5,35 5,37 8" stroke="#6f9c3d" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-    <ellipse cx="23" cy="23" rx="6" ry="4" fill="#fff2a8" opacity="0.85" transform="rotate(-35 23 23)"/>` },
+    <path d="M32 8 C44 8,51 19,51 32 C51 46,43 57,32 57 C21 57,13 46,13 32 C13 19,20 8,32 8 Z" fill="url(#gYellow)" stroke="#5c4707" stroke-width="2"/>
+    <path d="M29 9 C31 5,35 5,37 8" stroke="#3d5c1f" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+    <ellipse cx="23" cy="23" rx="5.5" ry="3.5" fill="#fff" opacity="0.7" transform="rotate(-35 23 23)"/>` },
 
   bell: { name: 'Bell', pay: { 3: 18, 4: 45, 5: 110 }, svg: `
-    <rect x="28" y="6" width="8" height="9" rx="2" fill="#8a6a1f"/>
-    <path d="M32 13 C24 13,22 20,22 24 C13 28,10 38,10 45 L54 45 C54 38,51 28,42 24 C42 20,40 13,32 13 Z" fill="#e8c77e" stroke="#7a5c17" stroke-width="2.5"/>
-    <rect x="8" y="45" width="48" height="7" rx="3.5" fill="#c9a961" stroke="#7a5c17" stroke-width="2"/>
-    <circle cx="32" cy="57" r="5.5" fill="#c9a961" stroke="#7a5c17" stroke-width="2"/>
-    <ellipse cx="23" cy="27" rx="4" ry="9" fill="#fff6da" opacity="0.55"/>` },
+    <rect x="28" y="6" width="8" height="9" rx="2" fill="url(#gChrome)"/>
+    <path d="M32 13 C24 13,22 20,22 24 C13 28,10 38,10 45 L54 45 C54 38,51 28,42 24 C42 20,40 13,32 13 Z" fill="url(#gChrome)" stroke="#2a2a2d" stroke-width="2"/>
+    <rect x="8" y="45" width="48" height="7" rx="3.5" fill="url(#gChromeDome)" stroke="#2a2a2d" stroke-width="1.5"/>
+    <circle cx="32" cy="57" r="5.5" fill="url(#gChromeDome)" stroke="#2a2a2d" stroke-width="1.5"/>
+    <ellipse cx="23" cy="27" rx="4" ry="9" fill="#fff" opacity="0.45"/>` },
 
   gem: { name: 'Gem', pay: { 3: 30, 4: 75, 5: 200 }, svg: `
-    <polygon points="32,8 48,24 32,58 16,24" fill="#3fc9e8" stroke="#0f6a80" stroke-width="2.5" stroke-linejoin="round"/>
-    <polygon points="32,8 48,24 32,24" fill="#a3f0ff"/>
-    <polygon points="16,24 32,24 32,8" fill="#6fe0f7"/>
-    <polygon points="16,24 32,24 32,58" fill="#1f9ab8"/>
-    <polygon points="48,24 32,24 32,58" fill="#2fb5d4"/>
-    <line x1="16" y1="24" x2="48" y2="24" stroke="#0f6a80" stroke-width="1.5"/>
-    <line x1="32" y1="24" x2="32" y2="58" stroke="#0f6a80" stroke-width="1.5"/>` },
+    <polygon points="32,8 48,24 32,58 16,24" fill="url(#gCyan)" stroke="#0a3f4d" stroke-width="2" stroke-linejoin="round"/>
+    <polygon points="32,8 48,24 32,24" fill="#eafeff" opacity="0.85"/>
+    <polygon points="16,24 32,24 32,8" fill="#bff5ff" opacity="0.6"/>
+    <line x1="16" y1="24" x2="48" y2="24" stroke="#0a3f4d" stroke-width="1.2"/>
+    <line x1="32" y1="24" x2="32" y2="58" stroke="#0a3f4d" stroke-width="1.2"/>` },
 
   seven: { name: 'Seven', pay: { 3: 55, 4: 140, 5: 380 }, svg: `
-    <text x="33" y="49" font-family="Arial,Helvetica,sans-serif" font-weight="900" font-size="44" text-anchor="middle" fill="#6b0e1f">7</text>
-    <text x="31" y="47" font-family="Arial,Helvetica,sans-serif" font-weight="900" font-size="44" text-anchor="middle" fill="#ff3d5c">7</text>` },
+    <text x="33" y="49" font-family="Arial,Helvetica,sans-serif" font-weight="900" font-size="44" text-anchor="middle" fill="#3d0810">7</text>
+    <text x="31" y="47" font-family="Arial,Helvetica,sans-serif" font-weight="900" font-size="44" text-anchor="middle" fill="url(#gRed)" stroke="#f5f5f2" stroke-width="1">7</text>` },
 
   wild: { name: 'Star', isWild: true, pay: { 3: 95, 4: 230, 5: 580 }, svg: `
-    <polygon points="32,8 37.9,23.9 54.8,24.6 41.5,35.1 46.1,51.4 32,42 17.9,51.4 22.5,35.1 9.2,24.6 26.1,23.9" fill="#ffd23f" stroke="#a8720a" stroke-width="2.5" stroke-linejoin="round"/>
-    <polygon points="32,16 35.5,25.5 45.5,26 38,32.5 40.5,42 32,36.5 23.5,42 26,32.5 18.5,26 28.5,25.5" fill="#fff3b0" opacity="0.6"/>` },
+    <polygon points="32,8 37.9,23.9 54.8,24.6 41.5,35.1 46.1,51.4 32,42 17.9,51.4 22.5,35.1 9.2,24.6 26.1,23.9" fill="url(#gChrome)" stroke="#2a2a2d" stroke-width="2" stroke-linejoin="round"/>
+    <polygon points="32,16 35.5,25.5 45.5,26 38,32.5 40.5,42 32,36.5 23.5,42 26,32.5 18.5,26 28.5,25.5" fill="#ffffff" opacity="0.55"/>` },
 
   clover: { name: 'Clover', isClover: true, pay: { 3: 12, 4: 32, 5: 80 }, svg: `
-    <path d="M32 34 C32 43,30 51,28 56" stroke="#3d7d3d" stroke-width="3.5" fill="none" stroke-linecap="round"/>
-    <circle cx="22" cy="22" r="11" fill="#43a047" stroke="#255c28" stroke-width="2"/>
-    <circle cx="42" cy="22" r="11" fill="#4caf50" stroke="#255c28" stroke-width="2"/>
-    <circle cx="22" cy="42" r="11" fill="#4caf50" stroke="#255c28" stroke-width="2"/>
-    <circle cx="42" cy="42" r="11" fill="#43a047" stroke="#255c28" stroke-width="2"/>
-    <circle cx="32" cy="32" r="7" fill="#5fc164"/>` },
+    <path d="M32 34 C32 43,30 51,28 56" stroke="#1c3d1c" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+    <circle cx="22" cy="22" r="11" fill="url(#gGreen)" stroke="#123312" stroke-width="1.5"/>
+    <circle cx="42" cy="22" r="11" fill="url(#gGreen)" stroke="#123312" stroke-width="1.5"/>
+    <circle cx="22" cy="42" r="11" fill="url(#gGreen)" stroke="#123312" stroke-width="1.5"/>
+    <circle cx="42" cy="42" r="11" fill="url(#gGreen)" stroke="#123312" stroke-width="1.5"/>
+    <circle cx="32" cy="32" r="7" fill="#6fd977"/>` },
 
   coin: { name: 'Coin', isCoin: true, flatValue: 9, svg: `
-    <circle cx="32" cy="32" r="24" fill="#f0cf6b" stroke="#8a6a1f" stroke-width="3"/>
-    <circle cx="32" cy="32" r="17" fill="none" stroke="#c9a961" stroke-width="2.5"/>
-    <text x="32" y="41" font-family="Arial,sans-serif" font-weight="900" font-size="23" text-anchor="middle" fill="#8a6a1f">$</text>
-    <path d="M13 21 A24 24 0 0 1 30 9" stroke="#fff6da" stroke-width="4" fill="none" stroke-linecap="round" opacity="0.7"/>` },
+    <circle cx="32" cy="32" r="24" fill="url(#gChrome)" stroke="#2a2a2d" stroke-width="2.5"/>
+    <circle cx="32" cy="32" r="17" fill="none" stroke="#2a2a2d" stroke-width="2"/>
+    <text x="32" y="41" font-family="Arial,sans-serif" font-weight="900" font-size="23" text-anchor="middle" fill="#2a2a2d">$</text>
+    <path d="M13 21 A24 24 0 0 1 30 9" stroke="#ffffff" stroke-width="4" fill="none" stroke-linecap="round" opacity="0.75"/>` },
 
   skull: { name: 'Skull', isSkull: true, svg: `
-    <path d="M32 8 C46 8,52 20,50 32 C50 36,48 38,46 40 L46 46 L40 46 L40 42 L36 42 L36 46 L28 46 L28 42 L24 42 L24 46 L18 46 L18 40 C16 38,14 36,14 32 C12 20,18 8,32 8 Z" fill="#e8e4d8" stroke="#5c574a" stroke-width="2.5"/>
-    <ellipse cx="23" cy="28" rx="6" ry="7" fill="#2a2620"/>
-    <ellipse cx="41" cy="28" rx="6" ry="7" fill="#2a2620"/>
-    <path d="M32 32 L28.5 39 L35.5 39 Z" fill="#2a2620"/>` },
+    <path d="M32 8 C46 8,52 20,50 32 C50 36,48 38,46 40 L46 46 L40 46 L40 42 L36 42 L36 46 L28 46 L28 42 L24 42 L24 46 L18 46 L18 40 C16 38,14 36,14 32 C12 20,18 8,32 8 Z" fill="url(#gBone)" stroke="#3a3a3e" stroke-width="2"/>
+    <ellipse cx="23" cy="28" rx="6" ry="7" fill="#19191b"/>
+    <ellipse cx="41" cy="28" rx="6" ry="7" fill="#19191b"/>
+    <path d="M32 32 L28.5 39 L35.5 39 Z" fill="#19191b"/>` },
 
   bonus: { name: 'Bonus', isScatter: true, svg: `
-    <path d="M32 26 C22 26,18 18,24 14 C29 11,32 18,32 26 Z" fill="#ffd700" stroke="#8a6a1f" stroke-width="2"/>
-    <path d="M32 26 C42 26,46 18,40 14 C35 11,32 18,32 26 Z" fill="#ffd700" stroke="#8a6a1f" stroke-width="2"/>
-    <rect x="12" y="28" width="40" height="28" fill="#c77dff" stroke="#6a2f99" stroke-width="2.5"/>
-    <rect x="12" y="28" width="40" height="8" fill="#a855f7" stroke="#6a2f99" stroke-width="2"/>
-    <rect x="27" y="28" width="10" height="28" fill="#ffd700" stroke="#8a6a1f" stroke-width="2"/>` },
+    <path d="M32 26 C22 26,18 18,24 14 C29 11,32 18,32 26 Z" fill="url(#gRed)" stroke="#3d0810" stroke-width="1.5"/>
+    <path d="M32 26 C42 26,46 18,40 14 C35 11,32 18,32 26 Z" fill="url(#gRed)" stroke="#3d0810" stroke-width="1.5"/>
+    <rect x="12" y="28" width="40" height="28" fill="url(#gDark)" stroke="#e0102a" stroke-width="2"/>
+    <rect x="12" y="28" width="40" height="8" fill="#2a2a2d" stroke="#e0102a" stroke-width="1.5"/>
+    <rect x="27" y="28" width="10" height="28" fill="url(#gRed)" stroke="#3d0810" stroke-width="1.5"/>` },
 };
 
 // Weighted reel strip — repeats = frequency. Shared by all 5 reels.
@@ -113,37 +111,56 @@ const PAYLINES = [
 ];
 
 const UPGRADE_POOL = [
-  { id: 'add_seven', name: 'Hot Sevens', desc: 'Add a Seven to the reels.', icon: '7️⃣', baseCost: 60,
+  { id: 'add_seven', name: 'Hot Sevens', desc: 'Add a Seven to the reels.', symbolIcon: 'seven', baseCost: 60,
     apply: (s) => s.strip.push('seven') },
-  { id: 'add_gem', name: 'Gem Rush', desc: 'Add a Gem to the reels.', icon: '💎', baseCost: 40,
+  { id: 'add_gem', name: 'Gem Rush', desc: 'Add a Gem to the reels.', symbolIcon: 'gem', baseCost: 40,
     apply: (s) => s.strip.push('gem') },
-  { id: 'add_wild', name: 'Wild Surge', desc: 'Add a Star (wild) to the reels.', icon: '⭐', baseCost: 70,
+  { id: 'add_wild', name: 'Wild Surge', desc: 'Add a Star (wild) to the reels.', symbolIcon: 'wild', baseCost: 70,
     apply: (s) => s.strip.push('wild') },
-  { id: 'add_clover', name: "Fortune's Favor", desc: 'Add a Clover. Fills your luck meter faster.', icon: '🍀', baseCost: 35,
+  { id: 'add_clover', name: "Fortune's Favor", desc: 'Add a Clover. Fills your luck meter faster.', symbolIcon: 'clover', baseCost: 35,
     apply: (s) => s.strip.push('clover') },
-  { id: 'add_coin', name: 'Coin Magnet', desc: 'Add a Coin symbol for flat bonus cash.', icon: '💰', baseCost: 35,
+  { id: 'add_coin', name: 'Coin Magnet', desc: 'Add a Coin symbol for flat bonus cash.', symbolIcon: 'coin', baseCost: 35,
     apply: (s) => s.strip.push('coin') },
-  { id: 'add_bonus', name: 'Bonus Beacon', desc: 'Add a Bonus scatter. More free spin rounds.', icon: '🎰', baseCost: 55,
+  { id: 'add_bonus', name: 'Bonus Beacon', desc: 'Add a Bonus scatter. More free spin rounds.', symbolIcon: 'bonus', baseCost: 55,
     available: (s) => s.strip.filter((x) => x === 'bonus').length < 3, apply: (s) => s.strip.push('bonus') },
-  { id: 'remove_cherry', name: 'Thin the Herd', desc: 'Remove a Cherry to concentrate the odds.', icon: '🍒', baseCost: 45,
+  { id: 'remove_cherry', name: 'Thin the Herd', desc: 'Remove a Cherry to concentrate the odds.', symbolIcon: 'cherry', baseCost: 45,
     available: (s) => s.strip.includes('cherry'), apply: (s) => removeOne(s.strip, 'cherry') },
-  { id: 'remove_lemon', name: 'Zest Purge', desc: 'Remove a Lemon to concentrate the odds.', icon: '🍋', baseCost: 40,
+  { id: 'remove_lemon', name: 'Zest Purge', desc: 'Remove a Lemon to concentrate the odds.', symbolIcon: 'lemon', baseCost: 40,
     available: (s) => s.strip.includes('lemon'), apply: (s) => removeOne(s.strip, 'lemon') },
-  { id: 'remove_skull', name: 'Skull Ward', desc: 'Permanently remove a Skull.', icon: '💀', baseCost: 65,
+  { id: 'remove_skull', name: 'Skull Ward', desc: 'Permanently remove a Skull.', symbolIcon: 'skull', baseCost: 65,
     available: (s) => s.strip.includes('skull'), apply: (s) => removeOne(s.strip, 'skull') },
-  { id: 'extra_spin', name: 'Extra Spin', desc: '+1 spin every round, forever.', icon: '➕', baseCost: 80,
+  { id: 'extra_spin', name: 'Extra Spin', desc: '+1 spin every round, forever.', glyphIcon: 'refresh', baseCost: 80,
     apply: (s) => { s.spinsTotal += 1; } },
-  { id: 'global_mult', name: 'Payout Boost', desc: '+8% to all payline winnings, permanently.', icon: '📈', baseCost: 100,
+  { id: 'global_mult', name: 'Payout Boost', desc: '+8% to all payline winnings, permanently.', glyphIcon: 'chart', baseCost: 100,
     apply: (s) => { s.globalMultiplier = +(s.globalMultiplier + 0.08).toFixed(2); } },
-  { id: 'coin_boost', name: 'Fat Stacks', desc: 'Coin symbols pay 50% more.', icon: '💵', baseCost: 50,
+  { id: 'coin_boost', name: 'Fat Stacks', desc: 'Coin symbols pay 50% more.', symbolIcon: 'coin', baseCost: 50,
     apply: (s) => { s.coinBonusMultiplier = +(s.coinBonusMultiplier + 0.5).toFixed(2); } },
-  { id: 'luck_boost', name: 'Four-Leaf Charm', desc: 'Luck meter fills faster.', icon: '🍀', baseCost: 55,
+  { id: 'luck_boost', name: 'Four-Leaf Charm', desc: 'Luck meter fills faster.', symbolIcon: 'clover', baseCost: 55,
     available: (s) => s.luckMeterMax > 4, apply: (s) => { s.luckMeterMax = Math.max(4, s.luckMeterMax - 1); } },
-  { id: 'insurance', name: 'Quota Insurance', desc: 'Miss a quota once and survive with +3 spins.', icon: '🛡️', baseCost: 90,
+  { id: 'insurance', name: 'Quota Insurance', desc: 'Miss a quota once and survive with +3 spins.', glyphIcon: 'shield', baseCost: 90,
     available: (s) => !s.hasInsurance, apply: (s) => { s.hasInsurance = true; } },
-  { id: 'freespin_boost', name: 'Bonus Extender', desc: '+2 spins during every Free Spins round.', icon: '🎁', baseCost: 60,
+  { id: 'freespin_boost', name: 'Bonus Extender', desc: '+2 spins during every Free Spins round.', glyphIcon: 'starburst', baseCost: 60,
     apply: (s) => { s.freeSpinBonusCount += 2; } },
 ];
+
+// Small bold glyphs for the handful of upgrades that don't map to a reel
+// symbol. Same rendering path as SYMBOLS so shop cards never fall back to emoji.
+const GLYPHS = {
+  refresh: `<path d="M48 20 A20 20 0 1 0 52 34" stroke="url(#gRed)" stroke-width="6" fill="none" stroke-linecap="round"/><path d="M48 8 L48 22 L36 20 Z" fill="url(#gRed)"/>`,
+  chart: `<rect x="10" y="38" width="9" height="18" fill="#8a8a90"/><rect x="23" y="26" width="9" height="30" fill="#c7c7cb"/><rect x="36" y="14" width="9" height="42" fill="url(#gRed)"/><path d="M12 22 L28 11 L44 18 L56 6" stroke="#f5f5f2" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M46 5 L57 5 L57 16" stroke="#f5f5f2" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>`,
+  shield: `<path d="M32 6 L54 14 L54 30 C54 45 44 55 32 58 C20 55 10 45 10 30 L10 14 Z" fill="url(#gRed)" stroke="#3d0810" stroke-width="2"/><path d="M21 31 L28 39 L45 21" stroke="#f5f5f2" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>`,
+  starburst: `<polygon points="32,4 38,22 56,22 42,34 47,52 32,42 17,52 22,34 8,22 26,22" fill="url(#gChrome)" stroke="#2a2a2d" stroke-width="2" stroke-linejoin="round"/>`,
+};
+
+function upgradeIconSVG(offer) {
+  const inner = offer.symbolIcon ? SYMBOLS[offer.symbolIcon].svg : GLYPHS[offer.glyphIcon];
+  return `<svg class="sym-icon" viewBox="0 0 64 64" aria-hidden="true">${inner}</svg>`;
+}
+
+const UI_ICONS = {
+  speakerOn: `<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M8 24 L8 40 L18 40 L30 50 L30 14 L18 24 Z" fill="#e8e8ea"/><path d="M38 20 A18 18 0 0 1 38 44" stroke="#e8e8ea" stroke-width="4.5" fill="none" stroke-linecap="round"/><path d="M45 12 A28 28 0 0 1 45 52" stroke="#e8e8ea" stroke-width="4.5" fill="none" stroke-linecap="round" opacity="0.55"/></svg>`,
+  speakerOff: `<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M8 24 L8 40 L18 40 L30 50 L30 14 L18 24 Z" fill="#e8e8ea"/><path d="M40 22 L56 42 M56 22 L40 42" stroke="#e0102a" stroke-width="5" stroke-linecap="round"/></svg>`,
+};
 
 /* ---------------------------------------------------------
    STATE
@@ -474,7 +491,7 @@ async function showWinTierCelebration(tier, amount) {
   screenShake(cfg.shake);
   spawnConfettiBurst(cfg.confetti);
   if (tier === 'jackpot' || tier === 'mega') {
-    flashScreen('rgba(232,199,126,0.3)');
+    flashScreen('rgba(245,245,242,0.35)');
     SFX.playFanfare(true);
   } else {
     SFX.playFanfare(false);
@@ -520,7 +537,7 @@ function spawnCoinBurstAtPayline(rows) {
     const cell = document.querySelector(`.reel[data-reel="${reelIdx}"] .final-symbol[data-row="${row}"]`);
     if (!cell) return;
     const r = cell.getBoundingClientRect();
-    spawnParticles(r.left + r.width / 2, r.top + r.height / 2, 7, ['#e8c77e', '#c9a961', '#fff3d6'], 'coin');
+    spawnParticles(r.left + r.width / 2, r.top + r.height / 2, 7, ['#e8e8ea', '#9a9a9e', '#ffffff'], 'coin');
   });
 }
 
@@ -531,7 +548,7 @@ function spawnCoinPopupsForSymbol(grid, symbolKey) {
         const cell = document.querySelector(`.reel[data-reel="${reelIdx}"] .final-symbol[data-row="${row}"]`);
         if (cell) {
           const r = cell.getBoundingClientRect();
-          spawnParticles(r.left + r.width / 2, r.top + r.height / 2, 5, ['#e8c77e', '#fff3d6'], 'coin');
+          spawnParticles(r.left + r.width / 2, r.top + r.height / 2, 5, ['#e8e8ea', '#ffffff'], 'coin');
           cell.classList.add('winning-cell');
           setTimeout(() => cell.classList.remove('winning-cell'), 850);
         }
@@ -578,13 +595,13 @@ async function presentResults(results, spinMultiplier, wasFreeSpin) {
     if (state.luckMeter >= state.luckMeterMax) {
       state.luckySpinReady = true;
       state.luckMeter = 0;
-      showToast('🍀 LUCKY SPIN READY');
+      showToast('LUCKY SPIN READY');
     }
   }
 
   if (results.skullCount >= 3) {
-    showToast('💀 unlucky...');
-    flashScreen('rgba(217,79,79,0.25)');
+    showToast('UNLUCKY...');
+    flashScreen('rgba(143,10,28,0.32)');
     SFX.playUnlucky();
   }
 
@@ -621,32 +638,56 @@ function resizeCanvas() {
 window.addEventListener('resize', resizeCanvas);
 resizeCanvas();
 
-// Cheap film-grain / CRT static: generate one small noise tile via an
-// offscreen canvas, then just jitter its background-position on an
-// interval. Far cheaper than redrawing full-screen random pixels every
-// frame, and reads the same to the eye.
-function initGrainTexture() {
-  const size = 48;
-  const c = document.createElement('canvas');
-  c.width = size;
-  c.height = size;
-  const cx = c.getContext('2d');
-  const imgData = cx.createImageData(size, size);
-  for (let i = 0; i < imgData.data.length; i += 4) {
-    const v = Math.random() * 255;
-    imgData.data[i] = v;
-    imgData.data[i + 1] = v;
-    imgData.data[i + 2] = v;
-    imgData.data[i + 3] = 255;
+// 3D parallax: rotate the machine scene toward the pointer (or a touch
+// drag, or a gentle idle sway when nothing is interacting with it). The
+// depth comes entirely from CSS translateZ on layers inside #machine-3d
+// (see style.css) — this just supplies the rotation, and perspective
+// projection does the rest, so the parallax is geometrically correct
+// rather than faked with manual per-layer offsets.
+function initParallax() {
+  const scene = document.getElementById('machine-3d');
+  if (!scene) return;
+  const maxTilt = 9;
+  let targetX = 0, targetY = 0, curX = 0, curY = 0;
+  let idle = true, idleAngle = Math.random() * 10;
+  let idleTimer = null;
+
+  function fromPointer(clientX, clientY) {
+    const rect = scene.getBoundingClientRect();
+    const px = (clientX - rect.left) / rect.width - 0.5;
+    const py = (clientY - rect.top) / rect.height - 0.5;
+    targetY = Math.max(-1, Math.min(1, px)) * maxTilt;
+    targetX = Math.max(-1, Math.min(1, -py)) * maxTilt;
   }
-  cx.putImageData(imgData, 0, 0);
-  const overlay = document.getElementById('grain-overlay');
-  overlay.style.backgroundImage = `url(${c.toDataURL()})`;
-  setInterval(() => {
-    overlay.style.backgroundPosition = `${Math.floor(Math.random() * size)}px ${Math.floor(Math.random() * size)}px`;
-  }, 90);
+
+  function wake() {
+    idle = false;
+    clearTimeout(idleTimer);
+    idleTimer = setTimeout(() => { idle = true; }, 1800);
+  }
+
+  window.addEventListener('pointermove', (e) => {
+    if (e.pointerType === 'mouse') { wake(); fromPointer(e.clientX, e.clientY); }
+  });
+  scene.addEventListener('touchmove', (e) => {
+    if (e.touches[0]) { wake(); fromPointer(e.touches[0].clientX, e.touches[0].clientY); }
+  }, { passive: true });
+  window.addEventListener('pointerleave', () => { idleTimer = setTimeout(() => { idle = true; }, 400); });
+
+  function tick() {
+    if (idle) {
+      idleAngle += 0.006;
+      targetY = Math.sin(idleAngle) * (maxTilt * 0.45);
+      targetX = Math.cos(idleAngle * 0.6) * (maxTilt * 0.28);
+    }
+    curX += (targetX - curX) * 0.08;
+    curY += (targetY - curY) * 0.08;
+    scene.style.transform = `rotateX(${curX.toFixed(2)}deg) rotateY(${curY.toFixed(2)}deg)`;
+    requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
 }
-initGrainTexture();
+initParallax();
 
 function spawnParticles(x, y, count, colors, shape) {
   for (let i = 0; i < count; i++) {
@@ -667,7 +708,7 @@ function spawnParticles(x, y, count, colors, shape) {
 }
 
 function spawnConfettiBurst(count) {
-  const colors = ['#ff3d68', '#e8c77e', '#29d3c7', '#6bcf7f', '#c9a961', '#f3e6d8'];
+  const colors = ['#e0102a', '#ff3b52', '#f5f5f2', '#c7c7cb', '#8f0a1c'];
   const w = window.innerWidth;
   for (let i = 0; i < count; i++) {
     particles.push({
@@ -785,7 +826,7 @@ function checkRoundEnd() {
     if (state.hasInsurance && !state.usedInsurance) {
       state.usedInsurance = true;
       state.spinsLeft += 3;
-      showToast('🛡️ insurance! +3 spins');
+      showToast('INSURANCE! +3 SPINS');
       updateHUD();
     } else {
       gameOver();
@@ -799,7 +840,7 @@ function cashOut() {
   state.coins += bonus;
   state.spinsLeft = 0;
   hideCashOutButton();
-  showToast(`💰 cashed out +${bonus}`);
+  showToast(`CASHED OUT +${bonus}`);
   updateHUD();
   roundClearSequence();
 }
@@ -809,7 +850,7 @@ function triggerFreeSpins(base) {
   state.freeSpinsLeft += total;
   hideCashOutButton();
   showBigBanner('FREE SPINS!', `+${total} spins at 2x pay`);
-  flashScreen('rgba(41,211,199,0.28)');
+  flashScreen('rgba(245,245,242,0.3)');
   SFX.playFreeSpins();
   updateHUD();
 }
@@ -852,10 +893,10 @@ function renderShop() {
     card.dataset.key = offer.key;
     const affordable = state.coins >= offer.cost;
     card.innerHTML = `
-      <div class="shop-card-icon">${offer.icon}</div>
+      <div class="shop-card-icon">${upgradeIconSVG(offer)}</div>
       <div class="shop-card-name">${offer.name}</div>
       <div class="shop-card-desc">${offer.desc}</div>
-      <button class="shop-buy-btn${affordable ? '' : ' unaffordable'}" data-key="${offer.key}">🪙 ${offer.cost}</button>
+      <button class="shop-buy-btn${affordable ? '' : ' unaffordable'}" data-key="${offer.key}"><span class="inline-icon"><svg viewBox="0 0 64 64" aria-hidden="true">${SYMBOLS.coin.svg}</svg></span>${offer.cost}</button>
     `;
     container.appendChild(card);
   });
@@ -1029,10 +1070,13 @@ document.getElementById('spin-btn').addEventListener('click', spin);
 document.getElementById('lever-wrap').addEventListener('click', pullLever);
 document.getElementById('cashout-btn').addEventListener('click', cashOut);
 
+document.getElementById('mute-btn').innerHTML = UI_ICONS.speakerOn;
 document.getElementById('mute-btn').addEventListener('click', () => {
   const muted = SFX.toggleMute();
-  document.getElementById('mute-btn').textContent = muted ? '🔇' : '🔊';
+  document.getElementById('mute-btn').innerHTML = muted ? UI_ICONS.speakerOff : UI_ICONS.speakerOn;
 });
+document.getElementById('luck-icon').innerHTML = `<svg viewBox="0 0 64 64" aria-hidden="true">${SYMBOLS.clover.svg}</svg>`;
+document.getElementById('shop-coin-icon').innerHTML = `<svg viewBox="0 0 64 64" aria-hidden="true">${SYMBOLS.coin.svg}</svg>`;
 
 document.getElementById('reroll-btn').addEventListener('click', rerollShop);
 document.getElementById('continue-btn').addEventListener('click', () => {
